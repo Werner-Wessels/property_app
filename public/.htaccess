@@ -4,6 +4,7 @@
     </IfModule>
 
     RewriteEngine On
+    RewriteBase /radsprop/
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
