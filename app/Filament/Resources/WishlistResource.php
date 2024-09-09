@@ -89,6 +89,7 @@ class WishlistResource extends Resource
                     ->multiple()
                     ->relationship('priority', 'name')->searchable(),
             ])
+            ->persistFiltersInSession()
             ->actions([
                 EditAction::make(),
                 DeleteAction::make(),
