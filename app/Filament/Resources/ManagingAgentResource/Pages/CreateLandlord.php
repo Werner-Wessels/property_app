@@ -2,17 +2,22 @@
 
 namespace App\Filament\Resources\LandlordResource\Pages;
 
-use App\Filament\Resources\LandlordResource;
+use App\Filament\Resources\ManagingAgentResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateLandlord extends CreateRecord
 {
-    protected static string $resource = LandlordResource::class;
+    protected static string $resource = ManagingAgentResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
 
         ];
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return static::getResource()::getUrl('index');
     }
 }

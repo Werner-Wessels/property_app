@@ -15,4 +15,9 @@ class CreateStatus extends CreateRecord
 
         ];
     }
+
+    protected function getRedirectUrl(): string
+    {
+        return static::getResource()::getUrl('index');
+    }
 }

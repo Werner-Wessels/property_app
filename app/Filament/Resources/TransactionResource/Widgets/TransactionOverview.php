@@ -21,11 +21,11 @@ class TransactionOverview extends BaseWidget
         $records = $this->getPageTableRecords();
 
         $totalIncome = $records->filter(function ($transaction) {
-            return $transaction->transaction_type === 'income';
+            return $transaction->transaction_type === 'income' && $transaction->transaction_status_id === 3;
         })->sum('amount');
 
         $totalExpense = $records->filter(function ($transaction) {
-            return $transaction->transaction_type === 'expense';
+            return $transaction->transaction_type === 'expense' && $transaction->transaction_status_id === 3;
         })->sum('amount');
 
         $totalProfit = $totalIncome - $totalExpense;

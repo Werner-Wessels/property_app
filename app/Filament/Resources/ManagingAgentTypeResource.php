@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\LandlordTypeResource\Pages;
-use App\Models\LandlordType;
+use App\Models\ManagingAgentType;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -15,9 +15,9 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class LandlordTypeResource extends Resource
+class ManagingAgentTypeResource extends Resource
 {
-    protected static ?string $model = LandlordType::class;
+    protected static ?string $model = ManagingAgentType::class;
 
     protected static ?string $slug = 'landlord-types';
 

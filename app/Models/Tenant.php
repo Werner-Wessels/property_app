@@ -9,13 +9,13 @@ class Tenant extends Model
 {
     protected $fillable = [
         'tenant_type_id',
+        'property_id',
         'display_name',
         'name',
         'surname',
         'email',
         'mobile_number',
-        'office_number',
-        'address_id'
+        'office_number'
     ];
 
     public function tenantType(): BelongsTo
@@ -23,13 +23,8 @@ class Tenant extends Model
         return $this->belongsTo(TenantType::class);
     }
 
-    public function address(): BelongsTo
+    public function property(): BelongsTo
     {
-        return $this->belongsTo(Address::class);
-    }
-
-    public function tenant_type(): BelongsTo
-    {
-        return $this->belongsTo(TenantType::class);
+        return $this->belongsTo(Property::class);
     }
 }

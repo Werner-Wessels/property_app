@@ -6,23 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Address extends Model
+class ManagingAgent extends Model
 {
     protected $fillable = [
+        'managing_agent_type_id',
+        'address_id',
+        'display_name',
         'name',
-        'address_type_id',
-        'street_address',
-        'address_line_2',
-        'suburb',
-        'city',
-        'province',
-        'postal_code'
+        'surname',
+        'mobile_number',
+        'office_number',
+        'email'
     ];
 
-    public function addressType(): BelongsTo
+    public function managingAgentType(): BelongsTo
     {
-        return $this->belongsTo(AddressType::class);
+        return $this->belongsTo(ManagingAgentType::class);
     }
+
 
     public function properties(): HasMany
     {

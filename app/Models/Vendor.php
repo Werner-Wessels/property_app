@@ -7,7 +7,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Vendor extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'vendor_type_id',
+        'display_name',
+        'name',
+        'email',
+        'mobile_number',
+        'office_number',
+        'address'
+    ];
 
     public function vendorType(): BelongsTo
     {

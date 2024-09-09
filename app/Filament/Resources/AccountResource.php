@@ -24,7 +24,7 @@ class accountResource extends Resource
 
     protected static ?string $slug = 'accounts';
 
-    protected static ?string $navigationGroup = 'Accounts';
+    protected static ?string $navigationGroup = 'Types';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

@@ -14,6 +14,7 @@ use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +23,7 @@ class TenantResource extends Resource
 {
     protected static ?string $model = Tenant::class;
 
-    protected static ?string $navigationGroup = 'Accounts';
+    protected static ?string $navigationGroup = 'Management';
 
     protected static ?string $slug = 'tenants';
 
@@ -35,6 +36,11 @@ class TenantResource extends Resource
                 Select::make('tenant_type_id')
                     ->relationship('tenant_type', 'name')
                     ->label('Tenant Type')
+                    ->required(),
+
+                Select::make('property_id')
+                    ->relationship('property', 'name')
+                    ->label('Property')
                     ->required(),
 
                 TextInput::make('display_name')
@@ -54,10 +60,6 @@ class TenantResource extends Resource
 
                 TextInput::make('office_number'),
 
-                Select::make('address_id')
-                    ->relationship('address', 'name')
-                    ->searchable()
-                    ->required(),
             ]);
     }
 
@@ -65,8 +67,6 @@ class TenantResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('tenant_type_id'),
-
                 TextColumn::make('display_name'),
 
                 TextColumn::make('name')
@@ -83,12 +83,13 @@ class TenantResource extends Resource
 
                 TextColumn::make('office_number'),
 
-                TextColumn::make('address.name')
-                    ->searchable()
-                    ->sortable(),
+                TextColumn::make('property.name'),
             ])
             ->filters([
-                //
+                SelectFilter::make('property')
+                    ->label('Property')
+                    ->multiple()
+                    ->relationship('property', 'name')->searchable(),
             ])
             ->actions([
                 EditAction::make(),

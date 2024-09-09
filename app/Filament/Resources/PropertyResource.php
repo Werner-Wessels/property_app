@@ -35,13 +35,13 @@ class PropertyResource extends Resource
                     ->label('Entity')
                     ->relationship('entity', 'name')
                     ->required(),
-                Forms\Components\Select::make('landlord_id')
-                    ->label('Landlord')
-                    ->relationship('landlord', 'display_name')
+                Forms\Components\Select::make('property_status_id')
+                    ->label('Status')
+                    ->relationship('propertyStatus', 'name')
                     ->required(),
-                Forms\Components\Select::make('address_id')
-                    ->label('Address')
-                    ->relationship('address', 'name')
+                Forms\Components\Select::make('managing_agent_id')
+                    ->label('Managing Agent')
+                    ->relationship('managingAgent', 'display_name')
                     ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
@@ -56,7 +56,29 @@ class PropertyResource extends Resource
                     ->label('Current Value')
                     ->numeric()
                     ->required(),
-
+                Forms\Components\TextInput::make('street_address')
+                    ->label('Street Address')
+                    ->string()
+                    ->required(),
+                Forms\Components\TextInput::make('address_line_2')
+                    ->label('Address Line 2')
+                    ->string(),
+                Forms\Components\TextInput::make('suburb')
+                    ->label('Suburb')
+                    ->string()
+                    ->required(),
+                Forms\Components\TextInput::make('city')
+                    ->label('City')
+                    ->string()
+                    ->required(),
+                Forms\Components\TextInput::make('province')
+                    ->label('Province')
+                    ->string()
+                    ->required(),
+                Forms\Components\TextInput::make('postal_code')
+                    ->label('Postal Code')
+                    ->numeric()
+                    ->required(),
             ]);
     }
 
@@ -71,6 +93,10 @@ class PropertyResource extends Resource
                     ->label('Entity')
                     ->sortable()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('propertyStatus.name')
+                    ->label('Status')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('current_value')
                     ->label('Property Value')
                     ->money('ZAR')
@@ -82,6 +108,10 @@ class PropertyResource extends Resource
                     ->label('Owned By')
                     ->multiple()
                     ->relationship('entity', 'nickname')->searchable(),
+                SelectFilter::make('property_status')
+                    ->label('Status')
+                    ->multiple()
+                    ->relationship('propertyStatus', 'name')->searchable(),
             ])
             ->persistFiltersInSession()
             ->actions([
@@ -98,7 +128,8 @@ class PropertyResource extends Resource
     public static function getRelations(): array
     {
         return [
-            PropertyResource\RelationManagers\TransactionsRelationManager::class
+            PropertyResource\RelationManagers\TransactionsRelationManager::class,
+            PropertyResource\RelationManagers\TenantsRelationManager::class
         ];
     }
 
@@ -114,7 +145,7 @@ class PropertyResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            PropertyResource\Widgets\PropertyOverview::class,
+            //PropertyResource\Widgets\PropertyOverview::class,
         ];
     }
 }

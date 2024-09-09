@@ -5,10 +5,12 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TransactionResource\Pages;
 use App\Models\Property;
 use App\Models\Transaction;
+use App\Models\TransactionStatus;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Filament\Tables\Filters\Filter;
@@ -20,7 +22,7 @@ class TransactionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
 
-    protected static ?string $navigationGroup = 'Accounts';
+    protected static ?string $navigationGroup = 'Management';
 
     public static function form(Form $form): Form
     {
@@ -31,6 +33,10 @@ class TransactionResource extends Resource
                 Forms\Components\Select::make('property_id')
                     ->relationship('property', 'name')
                     ->required(),
+                Forms\Components\Select::make('transaction_status_id')
+                    ->relationship('transactionStatus', 'name')
+                    ->hiddenOn('create')
+                    ->required(),
                 Forms\Components\TextInput::make('amount')
                     ->numeric()
                     ->required(),
@@ -40,8 +46,8 @@ class TransactionResource extends Resource
                         'expense' => 'Expense',
                     ])
                     ->required(),
-                Forms\Components\Select::make('type_id')
-                    ->relationship('type', 'name')
+                Forms\Components\Select::make('transaction_type_id')
+                    ->relationship('transaction_type', 'name')
                     ->required(),
                 Forms\Components\TextInput::make('comment')
                     ->maxLength(255),
@@ -56,16 +62,20 @@ class TransactionResource extends Resource
                 Tables\Columns\TextColumn::make('date')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('property.nickname')
+                Tables\Columns\TextColumn::make('property.name')
                     ->label('Property')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('amount')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('type.name')
-                    ->label('TransactionType')
+                Tables\Columns\TextColumn::make('transaction_type.name')
+                    ->label('Transaction Type')
                     ->sortable()
                     ->searchable(),
+                SelectColumn::make('transaction_status_id')
+                    ->label('Status')
+                    ->options(TransactionStatus::all()->pluck('name', 'id')->toArray())
+                    ->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('comment')->limit(20),
                 Tables\Columns\TextColumn::make('amount')
                     ->formatStateUsing(fn ($record) => $record->transaction_type === 'expense' ? '- ' . number_format($record->amount, 2) : number_format($record->amount, 2))

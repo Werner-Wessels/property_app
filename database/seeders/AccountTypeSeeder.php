@@ -12,7 +12,7 @@ class AccountTypeSeeder extends Seeder
         DB::table('account_types')->insert([
             ['name' => 'Vendor'],
             ['name' => 'Tenant'],
-            ['name' => 'Landlord'],
+            ['name' => 'ManagingAgent'],
         ]);
     }
 }

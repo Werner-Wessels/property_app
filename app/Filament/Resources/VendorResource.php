@@ -24,7 +24,7 @@ class VendorResource extends Resource
 
     protected static ?string $slug = 'vendors';
 
-    protected static ?string $navigationGroup = 'Accounts';
+    protected static ?string $navigationGroup = 'Management';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -38,19 +38,21 @@ class VendorResource extends Resource
                     ->required(),
 
                 TextInput::make('display_name')
+                    ->label('Company Name')
                     ->required(),
 
                 TextInput::make('name')
-                    ->required(),
-
-                TextInput::make('surname')
-                    ->required(),
+                    ->label('Contact Person'),
 
                 TextInput::make('email')
+                    ->email()
                     ->required(),
 
-                TextInput::make('mobile_number')
+                TextInput::make('address')
+                    ->label('Address')
                     ->required(),
+
+                TextInput::make('mobile_number'),
 
                 TextInput::make('office_number'),
             ]);
@@ -64,13 +66,15 @@ class VendorResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('display_name'),
-
-                TextColumn::make('name')
+                TextColumn::make('display_name')
+                    ->label("Company Name")
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('surname'),
+                TextColumn::make('name')
+                    ->label('Contact Person')
+                    ->searchable()
+                    ->sortable(),
 
                 TextColumn::make('email')
                     ->searchable()

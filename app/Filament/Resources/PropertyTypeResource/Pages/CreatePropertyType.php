@@ -15,4 +15,9 @@ class CreatePropertyType extends CreateRecord
 
         ];
     }
+
+    protected function getRedirectUrl(): string
+    {
+        return static::getResource()::getUrl('index');
+    }
 }

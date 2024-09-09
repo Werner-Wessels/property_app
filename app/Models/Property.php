@@ -13,13 +13,19 @@ class Property extends Model
 
     protected $fillable = [
         'property_type_id',
+        'property_status_id',
         'entity_id',
-        'landlord_id',
-        'address_id',
+        'managing_agent_id',
         'name',
         'purchase_value',
         'current_value',
-        'purchase_date'
+        'purchase_date',
+        'street_address',
+        'address_line_2',
+        'suburb',
+        'city',
+        'province',
+        'postal_code',
     ];
 
     public function entity(): BelongsTo
@@ -27,9 +33,9 @@ class Property extends Model
         return $this->belongsTo(Entity::class);
     }
 
-    public function landlord(): BelongsTo
+    public function managingAgent(): BelongsTo
     {
-        return $this->belongsTo(Landlord::class);
+        return $this->belongsTo(ManagingAgent::class);
     }
 
     public function property_type(): BelongsTo
@@ -37,14 +43,19 @@ class Property extends Model
         return $this->belongsTo(PropertyType::class);
     }
 
-    public function address(): BelongsTo
-    {
-        return $this->belongsTo(Address::class);
-    }
-
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function tenants(): HasMany
+    {
+        return $this->hasMany(Tenant::class);
+    }
+
+    public function propertyStatus(): BelongsTo
+    {
+        return $this->belongsTo(PropertyStatus::class);
     }
 
 }

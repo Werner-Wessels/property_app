@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateEntity extends CreateRecord
 {
     protected static string $resource = EntityResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return static::getResource()::getUrl('index');
+    }
 }

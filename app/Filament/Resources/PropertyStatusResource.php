@@ -2,26 +2,24 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AddressTypeResource\Pages;
-use App\Models\AddressType;
-use Filament\Forms\Components\Placeholder;
+use App\Filament\Resources\PropertyStatusResource\Pages;
+use App\Filament\Resources\PropertyStatusResource\RelationManagers;
+use App\Models\PropertyStatus;
+use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
+use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class AddressTypeResource extends Resource
+class PropertyStatusResource extends Resource
 {
-    protected static ?string $model = AddressType::class;
+    protected static ?string $model = PropertyStatus::class;
 
     protected static ?string $navigationGroup = 'Types';
-
-    protected static ?string $slug = 'address-types';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -29,7 +27,6 @@ class AddressTypeResource extends Resource
     {
         return $form
             ->schema([
-
                 TextInput::make('name')
                     ->required(),
             ]);
@@ -47,27 +44,28 @@ class AddressTypeResource extends Resource
                 //
             ])
             ->actions([
-                EditAction::make(),
-                DeleteAction::make(),
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAddressTypes::route('/'),
-            'create' => Pages\CreateAddressType::route('/create'),
-            'edit' => Pages\EditAddressType::route('/{record}/edit'),
+            'index' => Pages\ListPropertyStatuses::route('/'),
+            'create' => Pages\CreatePropertyStatus::route('/create'),
+            'edit' => Pages\EditPropertyStatus::route('/{record}/edit'),
         ];
-    }
-
-    public static function getGloballySearchableAttributes(): array
-    {
-        return ['name'];
     }
 }
