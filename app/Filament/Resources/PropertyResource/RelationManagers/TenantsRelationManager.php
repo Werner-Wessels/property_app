@@ -22,7 +22,7 @@ class TenantsRelationManager extends RelationManager
         return $form
             ->schema([
                 Select::make('tenant_type_id')
-                    ->relationship('tenant_type', 'name')
+                    ->relationship('tenantType', 'name')
                     ->label('Tenant Type')
                     ->required(),
 
