@@ -3,6 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\WishlistResource\Pages;
+use App\Models\Priority;
+use App\Models\Status;
 use App\Models\Wishlist;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
@@ -14,7 +16,9 @@ use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class WishlistResource extends Resource
@@ -58,15 +62,16 @@ class WishlistResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('status.name')
-                ->label('Status')
-                ->searchable()
-                ->sortable(),
+                SelectColumn::make('status_id')
+                    ->label('Status')
+                    ->options(Status::all()->pluck('name', 'id')->toArray())
+                    ->sortable()->searchable(),
 
-                TextColumn::make('priority.name')
+                SelectColumn::make('priority_id')
                     ->label('Priority')
-                    ->searchable()
-                    ->sortable(),
+                    ->options(Priority::all()->pluck('name', 'id')->toArray())
+                    ->sortable()->searchable(),
+
                 TextColumn::make('created_at')
                 ->label('Created')
                 ->dateTime(),
@@ -75,7 +80,14 @@ class WishlistResource extends Resource
                     ->dateTime()
             ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->label('Status')
+                    ->multiple()
+                    ->relationship('status', 'name')->searchable(),
+                SelectFilter::make('priority')
+                    ->label('Priority')
+                    ->multiple()
+                    ->relationship('priority', 'name')->searchable(),
             ])
             ->actions([
                 EditAction::make(),
