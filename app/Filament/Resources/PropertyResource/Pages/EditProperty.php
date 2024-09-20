@@ -17,10 +17,8 @@ class EditProperty extends EditRecord
         ];
     }
 
-    protected function getHeaderWidgets(): array
+    protected function getRedirectUrl(): string
     {
-        return [
-            PropertyResource\Widgets\PropertyOverview::class,
-        ];
+        return static::getResource()::getUrl('index');
     }
 }

@@ -22,7 +22,7 @@ class TransactionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
 
-    protected static ?string $navigationGroup = 'Management';
+
 
     public static function form(Form $form): Form
     {
@@ -86,7 +86,7 @@ class TransactionResource extends Resource
                 SelectFilter::make('property')
                     ->label('Properties')
                     ->multiple()
-                    ->relationship('property', 'nickname')->searchable(),
+                    ->relationship('property', 'name')->searchable()->preload(),
                 Filter::make('date_range')
                     ->form([
                         Forms\Components\DatePicker::make('start_date')
@@ -121,7 +121,7 @@ class TransactionResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TransactionResource\RelationManagers\DocumentsRelationManager::class,
         ];
     }
 

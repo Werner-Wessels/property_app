@@ -83,11 +83,11 @@ class WishlistResource extends Resource
                 SelectFilter::make('status')
                     ->label('Status')
                     ->multiple()
-                    ->relationship('status', 'name')->searchable(),
+                    ->relationship('status', 'name')->searchable()->preload(),
                 SelectFilter::make('priority')
                     ->label('Priority')
                     ->multiple()
-                    ->relationship('priority', 'name')->searchable(),
+                    ->relationship('priority', 'name')->searchable()->preload(),
             ])
             ->persistFiltersInSession()
             ->actions([

@@ -25,7 +25,7 @@ class LeaseResource extends Resource
 
     protected static ?string $slug = 'leases';
 
-    protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationGroup = 'Settings';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

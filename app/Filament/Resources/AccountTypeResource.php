@@ -19,7 +19,7 @@ class AccountTypeResource extends Resource
 {
     protected static ?string $model = AccountType::class;
 
-    protected static ?string $navigationGroup = 'Types';
+    protected static ?string $navigationGroup = 'Settings';
 
     protected static ?string $slug = 'account_types';
 

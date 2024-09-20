@@ -21,7 +21,7 @@ class TenantTypeResource extends Resource
 
     protected static ?string $slug = 'tenant-types';
 
-    protected static ?string $navigationGroup = 'Types';
+    protected static ?string $navigationGroup = 'Settings';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

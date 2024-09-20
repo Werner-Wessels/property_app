@@ -10,18 +10,18 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Carbon;
 
 class PropertyResource extends Resource
 {
     protected static ?string $model = Property::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office';
-
-    protected static ?string $navigationGroup = 'Management';
 
     public static function form(Form $form): Form
     {
@@ -107,11 +107,21 @@ class PropertyResource extends Resource
                 SelectFilter::make('entity')
                     ->label('Owned By')
                     ->multiple()
-                    ->relationship('entity', 'nickname')->searchable(),
+                    ->relationship('entity', 'name')->searchable()->preload(),
                 SelectFilter::make('property_status')
                     ->label('Status')
                     ->multiple()
-                    ->relationship('propertyStatus', 'name')->searchable(),
+                    ->relationship('propertyStatus', 'name')->searchable()->preload(),
+                SelectFilter::make('property')
+                    ->label('Property')
+                    ->options(Property::pluck('name', 'id')->toArray()) // Pull the list of property names and IDs
+                    ->query(function (Builder $query, array $data) {
+                        if (isset($data['value'])) {
+                            $query->where('id', $data['value']); // Correctly pass the selected property ID
+                        }
+                    })
+                    ->searchable()
+                    ->preload(),
             ])
             ->persistFiltersInSession()
             ->actions([
@@ -122,6 +132,33 @@ class PropertyResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ])
+            ->headerActions([
+                Tables\Actions\Action::make('filter_by_date')
+                    ->label('Filter by Date')
+                    ->action(function (array $data) {
+                        // Store the start and end dates in session or pass them to the widget
+                        session([
+                            'start_date' => $data['start_date'],
+                            'end_date' => $data['end_date'],
+                        ]);
+                    })
+                    ->form([
+                        Forms\Components\DatePicker::make('start_date')
+                            ->label('Start Date')
+                            ->default(session('start_date'))
+                            ->required(),
+                        Forms\Components\DatePicker::make('end_date')
+                            ->label('End Date')
+                            ->default(session('end_date'))
+                            ->required()
+                            ->minDate(fn (callable $get) => $get('start_date')),
+                    ]),
+                Tables\Actions\Action::make('clear_dates')
+                    ->label('Clear Dates')
+                    ->action(function () {
+                        session()->forget(['start_date', 'end_date']);
+                    }),
             ]);
     }
 
@@ -129,7 +166,10 @@ class PropertyResource extends Resource
     {
         return [
             PropertyResource\RelationManagers\TransactionsRelationManager::class,
-            PropertyResource\RelationManagers\TenantsRelationManager::class
+            PropertyResource\RelationManagers\TenantsRelationManager::class,
+            PropertyResource\RelationManagers\DescriptionRelationManager::class,
+            PropertyResource\RelationManagers\ImagesRelationManager::class,
+            PropertyResource\RelationManagers\DocumentsRelationManager::class
         ];
     }
 
@@ -145,7 +185,7 @@ class PropertyResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            //PropertyResource\Widgets\PropertyOverview::class,
+            PropertyResource\Widgets\PropertyOverview::class,
         ];
     }
 }

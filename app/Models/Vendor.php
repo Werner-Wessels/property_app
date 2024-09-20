@@ -21,4 +21,9 @@ class Vendor extends Model
     {
         return $this->belongsTo(VendorType::class);
     }
+
+    public function maintenanceLogs()
+    {
+        return $this->hasMany(MaintenanceLog::class);
+    }
 }

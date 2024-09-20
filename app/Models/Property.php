@@ -58,4 +58,24 @@ class Property extends Model
         return $this->belongsTo(PropertyStatus::class);
     }
 
+    public function maintenanceLogs()
+    {
+        return $this->hasMany(MaintenanceLog::class);
+    }
+
+    public function description()
+    {
+        return $this->hasOne(PropertyDescription::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(PropertyImage::class);
+    }
+
+    public function documents()
+    {
+        return $this->hasMany(PropertyDocument::class);
+    }
+
 }

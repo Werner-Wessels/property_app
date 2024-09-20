@@ -23,7 +23,7 @@ class TenantResource extends Resource
 {
     protected static ?string $model = Tenant::class;
 
-    protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationGroup = 'Settings';
 
     protected static ?string $slug = 'tenants';
 
@@ -89,7 +89,7 @@ class TenantResource extends Resource
                 SelectFilter::make('property')
                     ->label('Property')
                     ->multiple()
-                    ->relationship('property', 'name')->searchable(),
+                    ->relationship('property', 'name')->searchable()->preload(),
             ])
             ->actions([
                 EditAction::make(),

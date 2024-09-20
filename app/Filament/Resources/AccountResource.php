@@ -18,13 +18,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class accountResource extends Resource
+class AccountResource extends Resource
 {
     protected static ?string $model = Account::class;
 
     protected static ?string $slug = 'accounts';
 
-    protected static ?string $navigationGroup = 'Types';
+    protected static ?string $navigationGroup = 'Settings';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

@@ -21,7 +21,7 @@ class ManagingAgentTypeResource extends Resource
 
     protected static ?string $slug = 'landlord-types';
 
-    protected static ?string $navigationGroup = 'Types';
+    protected static ?string $navigationGroup = 'Settings';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

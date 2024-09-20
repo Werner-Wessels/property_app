@@ -17,7 +17,7 @@ class EntityResource extends Resource
 {
     protected static ?string $model = Entity::class;
 
-    protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationGroup = 'Settings';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

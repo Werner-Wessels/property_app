@@ -19,7 +19,7 @@ class PropertyStatusResource extends Resource
 {
     protected static ?string $model = PropertyStatus::class;
 
-    protected static ?string $navigationGroup = 'Types';
+    protected static ?string $navigationGroup = 'Settings';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
