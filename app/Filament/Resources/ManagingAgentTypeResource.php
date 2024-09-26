@@ -19,8 +19,6 @@ class ManagingAgentTypeResource extends Resource
 {
     protected static ?string $model = ManagingAgentType::class;
 
-    protected static ?string $slug = 'landlord-types';
-
     protected static ?string $navigationGroup = 'Settings';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

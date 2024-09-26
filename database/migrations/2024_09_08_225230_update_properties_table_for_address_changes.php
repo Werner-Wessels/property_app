@@ -17,7 +17,7 @@ return new class extends Migration
             $table->dropColumn('address_id');     // Then drop the column
 
             // Add new address-related columns
-            $table->string('street_address')->after('landlord_id');
+            $table->string('street_address')->after('managing_agent_id');
             $table->string('address_line_2')->nullable()->after('street_address');
             $table->string('suburb')->after('address_line_2');
             $table->string('city')->after('suburb');
@@ -33,7 +33,7 @@ return new class extends Migration
     {
         Schema::table('properties', function (Blueprint $table) {
             // Add back the address_id column
-            $table->foreignId('address_id')->constrained()->onDelete('cascade')->after('landlord_id');
+            $table->foreignId('address_id')->constrained()->onDelete('cascade')->after('managing_agent_id');
 
             // Drop the new address-related columns
             $table->dropColumn(['street_address', 'address_line_2', 'suburb', 'city', 'province', 'postal_code']);
