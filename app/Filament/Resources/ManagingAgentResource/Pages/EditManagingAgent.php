@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\LandlordResource\Pages;
+namespace App\Filament\Resources\ManagingAgentResource\Pages;
 
 use App\Filament\Resources\ManagingAgentResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
-class EditLandlord extends EditRecord
+class EditManagingAgent extends EditRecord
 {
     protected static string $resource = ManagingAgentResource::class;
 

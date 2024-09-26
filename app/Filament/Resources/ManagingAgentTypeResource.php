@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\LandlordTypeResource\Pages;
+use App\Filament\Resources\ManagingAgentTypeResource\Pages;
 use App\Models\ManagingAgentType;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\TextInput;
@@ -60,9 +60,9 @@ class ManagingAgentTypeResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListLandlordTypes::route('/'),
-            'create' => Pages\CreateLandlordType::route('/create'),
-            'edit' => Pages\EditLandlordType::route('/{record}/edit'),
+            'index' => Pages\ListManagingAgentTypes::route('/'),
+            'create' => Pages\CreateManagingAgentType::route('/create'),
+            'edit' => Pages\EditManagingAgentType::route('/{record}/edit'),
         ];
     }
 

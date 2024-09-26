@@ -75,7 +75,7 @@ class MaintenanceLogResource extends Resource
                     ->label('Property')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('vendor.name')
+                Tables\Columns\TextColumn::make('vendor.display_name')
                     ->label('Vendor')
                     ->sortable()
                     ->searchable(),

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\LandlordResource\Pages;
+namespace App\Filament\Resources\ManagingAgentResource\Pages;
 
 use App\Filament\Resources\ManagingAgentResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
-class ListLandlords extends ListRecords
+class ListManagingAgents extends ListRecords
 {
     protected static string $resource = ManagingAgentResource::class;
 

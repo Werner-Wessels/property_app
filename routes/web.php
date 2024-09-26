@@ -21,3 +21,8 @@ Route::get('/cache', function() {
     return 'Done cache';
 })->name('cache');
 
+Route::get('/foo', function () {
+    Artisan::call('storage:link');
+    return 'Done Link';
+});
+
