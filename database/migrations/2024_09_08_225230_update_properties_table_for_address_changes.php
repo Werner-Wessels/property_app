@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('properties', function (Blueprint $table) {
-            // Remove the address_id column
-            $table->dropForeign(['address_id']);  // Drop foreign key constraint first if it exists
-            $table->dropColumn('address_id');     // Then drop the column
+            $table->dropForeign(['address_id']);
+            $table->dropColumn('address_id');
 
             // Add new address-related columns
             $table->string('street_address')->after('managing_agent_id');
