@@ -16,6 +16,7 @@ return new class extends Migration
             $table->date('date');
             $table->foreignId('property_id')->constrained()->onDelete('cascade');
             $table->foreignId('transaction_type_id')->constrained()->onDelete('cascade');
+            $table->foreignId('transaction_status_id')->default(1)->constrained()->onDelete('cascade');
             $table->decimal('amount', 15, 2);
             $table->enum('transaction_type', ['income', 'expense']);
             $table->string('comment')->nullable();

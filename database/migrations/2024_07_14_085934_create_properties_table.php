@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('property_type_id')->constrained()->onDelete('cascade');
             $table->foreignId('entity_id')->constrained()->onDelete('cascade');
+            $table->foreignId('property_status_id')->constrained()->onDelete('cascade');
             $table->foreignId('managing_agent_id')->constrained()->onDelete('cascade');
             $table->foreignId('address_id')->constrained()->onDelete('cascade');
             $table->string('name');

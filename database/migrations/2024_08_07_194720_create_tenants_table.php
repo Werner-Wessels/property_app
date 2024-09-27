@@ -10,6 +10,7 @@ return new class extends Migration {
         Schema::create('tenants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tenant_type_id');
+            $table->foreignId('property_id');
             $table->string('display_name');
             $table->string('name');
             $table->string('surname');

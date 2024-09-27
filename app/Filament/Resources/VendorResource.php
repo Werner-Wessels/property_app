@@ -35,7 +35,7 @@ class VendorResource extends Resource
                 Select::make('vendor_type_id')
                     ->relationship('vendorType', 'name')
                     ->searchable()
-                    ->required(),
+                    ->required()->preload(),
 
                 TextInput::make('display_name')
                     ->label('Company Name')
