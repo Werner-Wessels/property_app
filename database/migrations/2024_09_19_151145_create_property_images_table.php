@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('property_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('property_id')->constrained('properties')->onDelete('cascade'); // Ensure it deletes with the property
+            $table->foreignId('property_id')->constrained('properties')->onDelete('cascade');
             $table->string('image_path');
             $table->string('description')->nullable();
             $table->boolean('is_featured')->default(false);
